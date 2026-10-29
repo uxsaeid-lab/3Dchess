@@ -1546,22 +1546,14 @@ export const ClassicChessArena: React.FC<ClassicChessArenaProps> = ({
 
     function initClassicPosition() {
       chess.reset();
-      OPENING_MOVES.forEach(([w, b]) => {
-        chess.move(w);
-        chess.move(b);
-      });
       syncBoardMeshesFromEngine();
-      const hist = chess.history({ verbose: true });
-      if (hist.length > 0) {
-        const last = hist[hist.length - 1];
-        const fPos = squareToCoords(last.from);
-        const tPos = squareToCoords(last.to);
-        lastMoveFromRing.position.set(fPos.x, 0.064, fPos.z);
-        lastMoveToRing.position.set(tPos.x, 0.064, tPos.z);
-        lastMoveFromRing.visible = true;
-        lastMoveToRing.visible = true;
-      }
+      lastMoveFromRing.visible = false;
+      lastMoveToRing.visible = false;
+      selectedSquare = null;
+      selectionRing.visible = false;
+      clearMoveIndicators();
     }
+    initClassicPosition();
     initClassicPosition();
 
     // ============================================================================
