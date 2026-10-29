@@ -1,0 +1,102 @@
+/* Classic 3D Chess Arena Styles */
+.classic-game-root {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #1f140e;
+  font-family: 'Inter', 'Vazirmatn', sans-serif;
+  color: #f3ede2;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.classic-game-root #canvas-container {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+}
+
+.classic-game-root .vignette-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(circle at 46% 50%, rgba(45, 26, 14, 0) 45%, rgba(18, 10, 5, 0.45) 85%, rgba(10, 5, 2, 0.72) 100%);
+}
+
+.classic-game-root .dark-glass {
+  background: rgba(24, 17, 13, 0.76);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid rgba(255, 228, 190, 0.13);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 235, 205, 0.1);
+}
+
+.classic-game-root .dark-glass-subtle {
+  background: rgba(22, 15, 11, 0.65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 228, 190, 0.09);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.classic-game-root .glass-btn {
+  background: rgba(28, 19, 14, 0.72);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 228, 190, 0.16);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
+}
+
+.classic-game-root .glass-btn:hover:not(:disabled) {
+  background: rgba(48, 33, 24, 0.88);
+  border-color: rgba(235, 190, 125, 0.38);
+  transform: translateY(-1.5px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
+}
+
+.classic-game-root .glass-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.classic-game-root .glass-btn:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
+.classic-game-root .move-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.classic-game-root .move-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.classic-game-root .move-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 225, 185, 0.18);
+  border-radius: 9999px;
+}
+
+.classic-game-root .turn-dot-blue {
+  background: #4f9cf9;
+  box-shadow: 0 0 10px #4f9cf9, 0 0 20px rgba(79, 156, 249, 0.6);
+}
+
+.classic-game-root .turn-dot-amber {
+  background: #f59e0b;
+  box-shadow: 0 0 10px #f59e0b, 0 0 20px rgba(245, 158, 11, 0.6);
+}
+
+.classic-game-root .captured-tray svg {
+  width: 15px;
+  height: 15px;
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,0.65));
+  transition: transform 0.2s ease;
+}
+
+.classic-game-root .captured-tray svg:hover {
+  transform: scale(1.2);
+}
