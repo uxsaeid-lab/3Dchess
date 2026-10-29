@@ -1554,7 +1554,6 @@ export const ClassicChessArena: React.FC<ClassicChessArenaProps> = ({
       clearMoveIndicators();
     }
     initClassicPosition();
-    initClassicPosition();
 
     // ============================================================================
     // 13. MAIN RENDER LOOP
