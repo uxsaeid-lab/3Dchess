@@ -1,17 +1,18 @@
-<!doctype html>
-<html lang="en" class="dark">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2338bdf8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-3-2-3 2m6 0l-3 2-3-2m3 2v6m-6-3l-3 2-3-2m3 2v6m6-6l-3-2-3 2'/></svg>" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>شاه‌مات | شطرنج سه‌بعدی و آنلاین</title>
-    <meta name="description" content="تجربه‌ای نوین از شطرنج سه‌بعدی آنلاین با نورپردازی سینمایی، مهره‌های دست‌تراش، افکت‌های ذرات و مبارزه با هوش مصنوعی‌های نامدار جهان." />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Vazirmatn:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  </head>
-  <body class="bg-[#090b10] text-slate-100 antialiased selection:bg-blue-600/30 selection:text-blue-900">
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+document.getElementById('resign-btn').addEventListener('click', () => {
+      if (chess.isGameOver()) return;
+      showBanner('شما تسلیم شدید. بازی جدید در حال چیده شدن...');
+      setTimeout(() => {
+        initClassicPosition(); // تغییر از chess.reset() به initClassicPosition()
+        lastMoveFromRing.visible = false;
+        lastMoveToRing.visible = false;
+      }, 1500);
+    });
+
+    document.getElementById('reset-board-btn').addEventListener('click', () => {
+      initClassicPosition(); // تغییر از chess.reset() به initClassicPosition()
+      lastMoveFromRing.visible = false;
+      lastMoveToRing.visible = false;
+      selectedSquare = null;
+      selectionRing.visible = false;
+      clearMoveIndicators();
+    });
