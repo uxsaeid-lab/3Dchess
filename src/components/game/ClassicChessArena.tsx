@@ -1540,7 +1540,8 @@ export const ClassicChessArena: React.FC<ClassicChessArenaProps> = ({
     cameraViewBtn?.addEventListener('click', handleCameraView);
 
   function initClassicPosition() {
-      chess.reset(); // پاک کردن کامل تخته و برگرداندن به حالت اولیه
+      // پاک کردن کامل تخته و برگرداندن به حالت اولیه
+      chess.reset();
       
       // اگر فرضا حرکتی توی حافظه یا تاریخچه گیر کرده بود، پاکش می‌کنیم
       while (chess.history().length > 0) {
