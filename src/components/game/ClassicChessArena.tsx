@@ -1539,8 +1539,15 @@ export const ClassicChessArena: React.FC<ClassicChessArenaProps> = ({
     };
     cameraViewBtn?.addEventListener('click', handleCameraView);
 
-    function initClassicPosition() {
-      chess.reset();
+  function initClassicPosition() {
+      chess.reset(); // پاک کردن کامل تخته و برگرداندن به حالت اولیه
+      
+      // اگر فرضا حرکتی توی حافظه یا تاریخچه گیر کرده بود، پاکش می‌کنیم
+      while (chess.history().length > 0) {
+        chess.undo();
+      }
+      chess.reset(); // یک بار دیگه برای اطمینان صد درصدی
+      
       syncBoardMeshesFromEngine();
       lastMoveFromRing.visible = false;
       lastMoveToRing.visible = false;
