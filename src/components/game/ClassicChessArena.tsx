@@ -1070,13 +1070,8 @@ export const ClassicChessArena: React.FC<ClassicChessArenaProps> = ({
     };
 
     const OPENING_MOVES = [
-      ['e4', 'e5'],
-      ['Nf3', 'Nc6'],
-      ['Bb5', 'a6'],
-      ['Ba4', 'Nf6'],
-      ['O-O', 'Be7'],
+      ['e4', 'e5'], ['Nf3', 'Nc6'], ['Bb5', 'a6'], ['Ba4', 'Nf6'], ['O-O', 'Be7']
     ];
-
     function squareToCoords(sq: string) {
       const f = files.indexOf(sq[0]);
       const r = 8 - parseInt(sq[1], 10);
