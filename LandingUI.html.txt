@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#ffffff" />
+<title>شاه‌مات | شطرنج آنلاین</title>
+
+<!-- بارگذاری فونت استاندارد وزیرمتن -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --blue:#124b91; 
+    --blue-2:#1767c4; 
+    --cyan:#36c9f4;
+    --ink:#111827; 
+    --muted:#64748b; 
+    --line:#e6ebf2;
+    --surface:#f6f9fd; 
+    --white:#fff; 
+    --radius:22px;
+    --shadow:0 18px 55px rgba(18,75,145,.12);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  
+  body{
+    margin:0;
+    background:#fff;
+    color:var(--ink);
+    font-family:'Vazirmatn', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height:1.8;
+    overflow-x:hidden;
+  }
+  
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;cursor:pointer}
+  
+  .container{width:100%;max-width:100%;padding:0 4vw;margin:0 auto}
+  
+  header{height:82px;display:flex;align-items:center;background:rgba(255,255,255,.88);border-bottom:1px solid rgba(220,230,242,.8);position:absolute;top:0;right:0;left:0;z-index:20;backdrop-filter:blur(14px)}
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:28px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:24px;white-space:nowrap}
+  .brand-mark{width:44px;height:44px;display:grid;place-items:center;border-radius:14px;color:#fff;background:linear-gradient(145deg,var(--blue),#2084ed);box-shadow:0 8px 20px #1767c433}
+  .brand-mark svg{width:26px;height:26px}
+  .nav-links{display:flex;align-items:center;gap:36px;color:#26364b;font-size:15px;font-weight:600}
+  .nav-links a:hover{color:var(--blue-2)}
+  .nav-actions{display:flex;align-items:center;gap:14px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:12px 24px;border-radius:13px;border:1px solid transparent;font-weight:700;font-size:14px;transition:.2s ease}
+  .btn-primary{color:#fff;background:linear-gradient(135deg,var(--blue),var(--blue-2));box-shadow:0 9px 20px #1767c426}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 13px 25px #1767c43b}
+  .btn-outline{border-color:#d9e4f1;background:rgba(255,255,255,.9);color:var(--blue)}
+  .btn-outline:hover{background:#f3f8ff;border-color:#a9c8ee}
+  .menu-toggle{display:none;background:#fff;border:1px solid var(--line);border-radius:12px;padding:9px 12px}
+
+  /* هیرو سکشن — تمام‌عرض */
+  .hero{position:relative;isolation:isolate;overflow:hidden;min-height:100svh;width:100vw;padding:82px 0 30px;background:#fff}
+  .hero-grid{position:relative;min-height:calc(100svh - 112px);display:flex;align-items:center;direction:ltr;width:100%}
+  .hero-content{direction:rtl;position:relative;z-index:3;width:min(44%,520px);padding:40px 0 60px;margin-right:auto;margin-left:0}
+  
+  .hero-visual{position:absolute;inset:0 0 0 200px;z-index:-2;height:100%;pointer-events:none}
+  .hero-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center right;display:block}
+  
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--blue);background:#eaf4ff;border:1px solid #d6eaff;padding:6px 14px;border-radius:999px;font-size:13px;font-weight:700}
+  .eyebrow-dot{width:7px;height:7px;background:#2fb9ee;border-radius:50%;box-shadow:0 0 0 4px #2fb9ee24}
+  h1{font-size:clamp(36px,4.2vw,58px);line-height:1.35;letter-spacing:-1px;margin:22px 0 16px;font-weight:900}
+  h1 span{color:var(--blue-2);position:relative;white-space:nowrap}
+  .hero-copy{max-width:480px;color:#53657c;font-size:16px;line-height:2.1;margin:0 0 30px;font-weight:400}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:14px}
+  .hero-note{display:flex;align-items:center;gap:12px;margin-top:28px;color:#718096;font-size:13px;font-weight:500}
+  .avatars{display:flex;direction:ltr;padding-left:4px}
+  .avatar{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;border:2px solid #fff;margin-left:-8px;background:#dff4ff;font-size:14px}
+  .avatar:nth-child(2){background:#fce7f3}.avatar:nth-child(3){background:#e0e7ff}.avatar:nth-child(4){background:#dcfce7}
+  
+  .section{padding:90px 0;width:100%}
+  .section-heading{text-align:center;max-width:700px;margin:0 auto 48px}
+  .section-heading .kicker{color:var(--blue-2);font-weight:800;font-size:13px;letter-spacing:.3px}
+  h2{font-size:clamp(28px,3.2vw,40px);line-height:1.45;margin:10px 0 12px;letter-spacing:-.6px;font-weight:800}
+  .section-heading p{color:var(--muted);margin:0;font-size:15px}
+  
+  .features{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+  .feature{padding:32px 28px;border:1px solid var(--line);border-radius:22px;background:#fff;transition:.22s}
+  .feature:hover{transform:translateY(-6px);border-color:#c6ddf8;box-shadow:var(--shadow)}
+  .feature-icon{width:56px;height:56px;display:grid;place-items:center;background:#eef6ff;color:var(--blue-2);border-radius:18px;margin-bottom:20px}
+  .feature-icon svg{width:28px;height:28px}
+  .feature h3{font-size:18px;margin:0 0 10px;font-weight:700}
+  .feature p{font-size:14px;line-height:2.1;color:var(--muted);margin:0}
+  
+  .recent-section{background:var(--surface);border-top:1px solid #edf2f8;border-bottom:1px solid #edf2f8}
+  .recent-top{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:30px}
+  .recent-top h2{margin:0}
+  .recent-top p{color:var(--muted);font-size:14px;margin:4px 0 0}
+  .games{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .game-card{background:#fff;border:1px solid #e5ebf3;border-radius:20px;padding:22px;display:flex;align-items:center;gap:16px;min-width:0;cursor:pointer;transition:all .24s ease}
+  .game-card:hover{transform:translateY(-5px);border-color:#a4caf7;box-shadow:0 16px 36px rgba(18,75,145,.1)}
+  .mini-board{width:76px;height:76px;flex:0 0 76px;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr);border-radius:10px;overflow:hidden}
+  .mini-board i{display:grid;place-items:center;font-style:normal;font-size:18px}
+  .mini-board i:nth-child(8n+1),.mini-board i:nth-child(8n+3),.mini-board i:nth-child(8n+6),.mini-board i:nth-child(8n+8){background:#dceafa}
+  .mini-board i:nth-child(8n+2),.mini-board i:nth-child(8n+4),.mini-board i:nth-child(8n+5),.mini-board i:nth-child(8n+7){background:#3267a5;color:#fff}
+  .game-info{min-width:0;flex:1}.game-info strong{display:block;font-size:15px;font-weight:700}.game-info span{display:block;color:var(--muted);font-size:12px;margin-top:4px}
+  .game-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px}
+  .tag{background:#eaf4ff;color:var(--blue);border-radius:8px;padding:4px 8px;font-size:11px;font-weight:600}
+  .game-time{font-size:11px;color:#94a3b8;white-space:nowrap}
+  
+  .bottom-cta{padding:80px 0}
+  .cta-panel{position:relative;overflow:hidden;border-radius:30px;padding:52px 64px;background:linear-gradient(115deg,#103f7c,#176bc0);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:36px;box-shadow:0 24px 60px rgba(18,75,145,.18)}
+  .cta-panel:after{content:"♟";position:absolute;font-size:260px;line-height:1;color:#fff;opacity:.05;left:6%;bottom:-90px;transform:rotate(-14deg)}
+  .cta-panel h2{font-size:clamp(26px,3.2vw,38px);margin:0 0 10px;position:relative;z-index:1;font-weight:800}
+  .cta-panel p{color:#d9eaff;margin:0;font-size:15px;position:relative;z-index:1}
+  .cta-panel .btn{background:#fff;color:var(--blue);position:relative;z-index:1;white-space:nowrap;padding:14px 28px}
+  
+  footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:13px}
+  .footer-inner{display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .footer-links{display:flex;gap:26px}.footer-links a:hover{color:var(--blue)}
+  
+  /* پاپ‌آپ «به زودی» */
+  .soon-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(10, 24, 48, 0.52);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.28s;
+  }
+  .soon-modal-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  .soon-modal-card {
+    background: #ffffff;
+    border: 1px solid #d8e6f8;
+    border-radius: 26px;
+    box-shadow: 0 24px 65px rgba(18, 75, 145, 0.22);
+    max-width: 450px;
+    width: 100%;
+    padding: 34px 30px 28px;
+    text-align: center;
+    transform: scale(0.92) translateY(14px);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .soon-modal-backdrop.active .soon-modal-card {
+    transform: scale(1) translateY(0);
+  }
+  .soon-icon-wrap {
+    width: 66px;
+    height: 66px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #eaf4ff, #dbeafe);
+    color: var(--blue-2);
+    display: grid;
+    place-items: center;
+    margin: 0 auto 16px;
+    box-shadow: 0 10px 24px rgba(23, 103, 196, 0.14);
+  }
+  .soon-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: #eaf4ff;
+    color: var(--blue);
+    font-size: 12px;
+    font-weight: 800;
+    margin-bottom: 10px;
+  }
+  .soon-title {
+    font-size: 20px;
+    font-weight: 900;
+    color: #0d274c;
+    margin: 0 0 8px;
+  }
+  .soon-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.85;
+    margin: 0 0 24px;
+  }
+  .soon-actions {
+    display: flex;
+    gap: 12px;
+  }
+  .soon-actions .btn {
+    flex: 1;
+    padding: 11px 16px;
+  }
+
+  /* مودال‌ها */
+  .bot-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(10, 24, 48, 0.65);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s;
+  }
+  .bot-modal-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  .bot-modal {
+    background: #ffffff;
+    border: 1px solid rgba(220, 230, 245, 0.9);
+    border-radius: 28px;
+    box-shadow: 0 24px 70px rgba(10, 37, 75, 0.22);
+    width: 100%;
+    max-width: 1120px;
+    max-height: 92vh;
+    overflow-y: auto;
+    position: relative;
+    padding: 38px 36px 34px;
+    transform: scale(0.94) translateY(15px);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .bot-modal-backdrop.active .bot-modal {
+    transform: scale(1) translateY(0);
+  }
+  .modal-close-btn {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: #f8fbff;
+    color: var(--muted);
+    display: grid;
+    place-items: center;
+    font-size: 18px;
+    transition: 0.2s;
+  }
+  .modal-close-btn:hover {
+    background: #eef5fc;
+    color: var(--ink);
+  }
+  .modal-header {
+    text-align: center;
+    max-width: 620px;
+    margin: 0 auto 30px;
+  }
+  .modal-header h2 {
+    font-size: clamp(24px, 2.5vw, 32px);
+    font-weight: 900;
+    margin: 8px 0;
+    color: #0d274c;
+    letter-spacing: -0.6px;
+  }
+  .modal-header p {
+    color: var(--muted);
+    font-size: 15px;
+    margin: 0;
+  }
+
+  .bot-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+  .bot-card {
+    background: #ffffff;
+    border: 2px solid var(--line);
+    border-radius: 22px;
+    padding: 24px 18px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+  }
+  .bot-card:hover {
+    transform: translateY(-5px);
+    border-color: #a4caf7;
+    box-shadow: 0 16px 36px rgba(18, 75, 145, 0.1);
+  }
+  .bot-card.selected {
+    border-color: var(--blue-2);
+    background: #f8fbff;
+    box-shadow: 0 12px 32px rgba(23, 103, 196, 0.16);
+  }
+
+  .card-check-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--blue-2);
+    color: #fff;
+    display: none;
+    place-items: center;
+    font-size: 13px;
+    box-shadow: 0 4px 10px rgba(23, 103, 196, 0.35);
+  }
+  .bot-card.selected .card-check-badge {
+    display: grid;
+  }
+
+  .bot-portrait-wrap {
+    width: 116px;
+    height: 116px;
+    border-radius: 50%;
+    margin-bottom: 16px;
+    position: relative;
+    display: grid;
+    place-items: center;
+    background: #f1f6fd;
+    border: 3px solid #fff;
+    box-shadow: 0 8px 22px rgba(18, 75, 145, 0.08);
+    overflow: hidden;
+  }
+  .bot-portrait-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .bot-name {
+    font-size: 18px;
+    font-weight: 800;
+    color: #0f2b54;
+    margin: 0;
+  }
+  .bot-name-en {
+    font-size: 12px;
+    color: #8395aa;
+    font-weight: 500;
+    margin-top: 2px;
+    margin-bottom: 14px;
+    letter-spacing: 0.2px;
+  }
+
+  .power-meta {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+  .power-label {
+    color: #64748b;
+    font-weight: 600;
+  }
+  .power-value {
+    font-weight: 800;
+    color: var(--blue);
+  }
+  .power-bar-bg {
+    width: 100%;
+    height: 7px;
+    background: #e9f0f8;
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+  .power-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.4s ease;
+  }
+
+  .bot-card[data-bot="noob"] .power-bar-fill { background: #38bdf8; width: 20%; }
+  .bot-card[data-bot="fischer"] .power-bar-fill { background: #2563eb; width: 50%; }
+  .bot-card[data-bot="kasparov"] .power-bar-fill { background: #1e40af; width: 75%; }
+  .bot-card[data-bot="magnus"] .power-bar-fill { background: #0f172a; width: 100%; }
+
+  .difficulty-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .tag-easy { background: #e0f2fe; color: #0284c7; }
+  .tag-medium { background: #e0e7ff; color: #3730a3; }
+  .tag-hard { background: #dbeafe; color: #1e3a8a; }
+  .tag-master { background: #ede9fe; color: #5b21b6; }
+
+  .bot-desc {
+    font-size: 13px;
+    color: #556982;
+    line-height: 1.6;
+    margin: 0 0 18px;
+    min-height: 42px;
+  }
+
+  .card-action-btn {
+    width: 100%;
+    padding: 9px 12px;
+    border-radius: 11px;
+    border: 1px solid #d4e2f3;
+    background: #f8fbfe;
+    color: var(--blue);
+    font-size: 13px;
+    font-weight: 700;
+    transition: 0.2s;
+  }
+  .bot-card:hover .card-action-btn,
+  .bot-card.selected .card-action-btn {
+    background: var(--blue-2);
+    border-color: var(--blue-2);
+    color: #fff;
+  }
+
+  /* ========================================================
+     کارت‌های انتخاب مپ (تبدیل به رنگ سبز برای میز فعال)
+     ======================================================== */
+  .worlds-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 30px;
+  }
+  .world-card {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    height: 440px;
+    border: 3px solid var(--line);
+    background: #0d1526;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .world-card.active-world {
+    cursor: pointer;
+    border-color: #059669; /* تغییر رنگ از نارنجی به سبز */
+    box-shadow: 0 18px 45px rgba(5, 150, 105, 0.24);
+  }
+  .world-card.active-world:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 55px rgba(5, 150, 105, 0.35);
+  }
+  .world-card.locked-world {
+    cursor: pointer;
+    border-color: #d8e0ec;
+  }
+  .world-cover-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('Chess Worlds Selection Trio.png');
+    background-repeat: no-repeat;
+    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease;
+  }
+  .world-cover-classic {
+    background-size: 312% 106%;
+    background-position: 1.5% 50%;
+  }
+  .world-cover-minecraft {
+    background-size: 312% 106%;
+    background-position: 50% 50%;
+    filter: grayscale(92%) brightness(0.62) contrast(0.95);
+  }
+  .world-cover-japan {
+    background-size: 312% 106%;
+    background-position: 98.5% 50%;
+    filter: grayscale(92%) brightness(0.62) contrast(0.95);
+  }
+  .world-card.active-world:hover .world-cover-bg {
+    transform: scale(1.05);
+  }
+  .world-gradient-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10,18,36,0.08) 0%, rgba(10,18,36,0.48) 52%, rgba(8,14,28,0.96) 100%);
+    z-index: 1;
+  }
+  .world-top-badges {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    left: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 3;
+  }
+  .badge-ready {
+    background: linear-gradient(135deg, #10b981, #059669); /* سبز فعال */
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 5px 14px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 6px 18px rgba(16, 185, 129, 0.4);
+  }
+  .badge-soon {
+    background: rgba(15, 23, 42, 0.88);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #fbbf24;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 5px 14px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .center-lock-circle {
+    position: absolute;
+    top: 43%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: rgba(15, 23, 42, 0.82);
+    backdrop-filter: blur(10px);
+    border: 1.5px solid rgba(255, 255, 255, 0.28);
+    color: #f8fafc;
+    display: grid;
+    place-items: center;
+    z-index: 3;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55);
+    transition: transform 0.25s ease;
+  }
+  .world-card.locked-world:hover .center-lock-circle {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  .world-info-box {
+    position: relative;
+    z-index: 3;
+    padding: 24px 22px;
+    color: #ffffff;
+    text-align: right;
+  }
+  .world-kicker {
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    display: block;
+  }
+  .world-title-fa {
+    font-size: 21px;
+    font-weight: 900;
+    margin: 0 0 2px;
+    color: #ffffff;
+  }
+  .world-title-en {
+    font-family: 'Cinzel', serif;
+    font-size: 11.5px;
+    letter-spacing: 1px;
+    color: #6ee7b7; /* سبز ملایم انگلیسی */
+    display: block;
+    margin-bottom: 10px;
+  }
+  .world-desc {
+    font-size: 13px;
+    color: #cbd5e1;
+    line-height: 1.65;
+    margin: 0 0 14px;
+  }
+  .world-select-btn {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 800;
+    border: none;
+    background: linear-gradient(135deg, #10b981, #059669); /* دکمه سبز */
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(5, 150, 105, 0.35);
+    transition: 0.2s;
+  }
+  .world-select-btn.locked-btn {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #cbd5e1;
+    box-shadow: none;
+  }
+
+  .modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    gap: 16px;
+  }
+  .modal-hint {
+    color: #64748b;
+    font-size: 13px;
+  }
+  .btn-start-game {
+    padding: 14px 34px;
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: 800;
+    color: #fff;
+    background: linear-gradient(135deg, var(--blue), var(--blue-2));
+    border: none;
+    box-shadow: 0 10px 24px rgba(23, 103, 196, 0.28);
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .btn-start-game:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px rgba(23, 103, 196, 0.4);
+  }
+
+  @media(max-width:1100px){
+    .hero-visual{inset:0 0 0 120px}
+    .features{grid-template-columns:repeat(2,1fr)}
+    .games{grid-template-columns:repeat(2,1fr)}
+    .hero-content{width:min(52%,480px)}
+    .bot-cards-grid { grid-template-columns: repeat(2, 1fr); }
+    .worlds-grid { grid-template-columns: 1fr; }
+    .world-card { height: 370px; }
+  }
+  @media(max-width:850px){
+    .nav-links{display:none}
+    .menu-toggle{display:block}
+    .hero{padding:74px 0 24px}
+    .hero-content{width:100%;margin:0;padding:24px 0 340px}
+    .hero-visual{inset:0;top:40%}
+    .hero-image{object-position:center top;object-fit:cover}
+    .features{grid-template-columns:1fr}
+    .games{grid-template-columns:1fr}
+    .cta-panel{padding:36px 28px;flex-direction:column;align-items:flex-start}
+    .cta-panel .btn{width:100%}
+    .footer-inner{flex-direction:column;align-items:flex-start}
+    .bot-cards-grid { grid-template-columns: 1fr; }
+    .bot-modal { padding: 30px 20px 24px; }
+    .modal-footer { flex-direction: column; align-items: stretch; }
+    .btn-start-game { width: 100%; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a class="brand" href="#home" aria-label="شاه‌مات، صفحه اصلی">
+      <span class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M8 3h8v3h3v4h-3v3h3v3H5v-3h3v-3H5V6h3V3Z" fill="currentColor"/>
+          <path d="M6 19h12v2H6z" fill="currentColor"/>
+        </svg>
+      </span>
+      <span>شاه‌مات</span>
+    </a>
+    <nav class="nav-links" aria-label="منوی اصلی">
+      <a href="#play" onclick="openBotModal(event)">شروع بازی</a>
+      <a href="#features">امکانات</a>
+      <a href="#recent">بازی‌های اخیر</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="btn btn-outline" href="#recent">بازی‌های اخیر</a>
+      <button class="btn btn-primary" onclick="openBotModal(event)">شروع بازی <span aria-hidden="true">←</span></button>
+      <button class="menu-toggle" id="menuToggle" aria-label="نمایش منو">☰</button>
+    </div>
+  </div>
+</header>
+
+<main id="home">
+  <section class="hero" id="play">
+    <div class="container hero-grid">
+      
+      <div class="hero-content">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> دنیای تازه‌ای از شطرنج سه‌بعدی</div>
+        <h1>حرکت بعدی تو،<br><span>شروع یک پیروزی</span></h1>
+        <p class="hero-copy">هوشمندانه بازی کن، مهارتت رو ارتقا بده و با حریفان قدرتمند رقابت کن. صفحه‌ی سه‌بعدی شطرنج آماده‌ست؛ نوبت تسخیر محراب نبرده.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="openBotModal(event)">شروع بازی <span aria-hidden="true">←</span></button>
+          <a class="btn btn-outline" href="#features">کشف امکانات <span aria-hidden="true">⌄</span></a>
+        </div>
+        <div class="hero-note">
+          <div class="avatars" aria-hidden="true">
+            <span class="avatar">♞</span>
+            <span class="avatar">♟</span>
+            <span class="avatar">♜</span>
+            <span class="avatar">♛</span>
+          </div>
+          <span>بیش از ۱۲,۰۰۰ نبرد هم‌اکنون در جریان است</span>
+        </div>
+      </div>
+      
+      <div class="hero-visual" aria-label="تصویر سه‌بعدی مهره‌های شطرنج">
+        <img class="hero-image" src="شاه صورتی روی صفحه شطرنج آبی.png" alt="شاه صورتی روی صفحه شطرنج آبی" />
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-heading">
+        <span class="kicker">ویژگی‌های برجسته</span>
+        <h2>تجربه بی‌نقص از شطرنج حرفه‌ای</h2>
+        <p>تمام ابزارهای مورد نیاز برای تمرین، ارتقای ریتینگ و بازی با هوش مصنوعی‌های پیشرفته در یک رابط مدرن گردهم آمده است.</p>
+      </div>
+      <div class="features">
+        <div class="feature">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3>گرافیک زنده و تعاملی</h3>
+          <p>رندر سه‌بعدی دقیق مهره‌ها با زاویه دید ایزومتریک، آکوستیک زنده صدا و امکان تغییر دوربین بدون افت فریم.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <h3>نبردهای آنی و بدون تأخیر</h3>
+          <p>ارتباط همگام با موتور تحلیل شطرنج و امکان رقابت بلادرنگ یا بازی دونفره محلی (Pass & Play) بدون نیاز به نصب هیچ ابزاری.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>حریفان تمرینی هوشمند</h3>
+          <p>بات‌های هوش مصنوعی با کاراکترها و سبک‌های تهاجمی یا دفاعی متنوع جهت آماده‌سازی بازیکن برای مسابقات ریتینگی.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section recent-section" id="recent">
+    <div class="container">
+      <div class="recent-top">
+        <div>
+          <h2>میزهای مسابقه در حال اجرا</h2>
+          <p>به صورت زنده نبرد بازیکنان را دنبال کنید یا بازی جدید بسازید.</p>
+        </div>
+        <button class="btn btn-outline" onclick="openSoonModal('بخش تماشای زنده و مسابقات آنلاین')">مشاهده تمام میزها</button>
+      </div>
+      <div class="games">
+        <div class="game-card" onclick="openSoonModal('تماشای زنده میز مگنوس کارلسن و آرش')">
+          <div class="mini-board">
+            <i>♜</i><i></i><i></i><i>♚</i>
+            <i></i><i>♟</i><i></i><i></i>
+            <i></i><i></i><i>♙</i><i></i>
+            <i>♔</i><i></i><i></i><i>♖</i>
+          </div>
+          <div class="game-info">
+            <strong>مگنوس کارلسن vs. آرش</strong>
+            <span>تالار کتابخانه سلطنتی • بلیتز ۵ دقیقه‌ای</span>
+            <div class="game-meta">
+              <span class="tag">حرکت ۳۴</span>
+              <span class="game-time">۰۱:۴۲ مانده</span>
+            </div>
+          </div>
+        </div>
+        <div class="game-card" onclick="openSoonModal('تماشای زنده میز نوب اسب و کیان')">
+          <div class="mini-board">
+            <i></i><i>♞</i><i></i><i>♚</i>
+            <i>♟</i><i></i><i></i><i></i>
+            <i></i><i>♙</i><i></i><i></i>
+            <i>♔</i><i></i><i>♗</i><i></i>
+          </div>
+          <div class="game-info">
+            <strong>نوب اسب vs. کیان</strong>
+            <span>قلمرو مکعبی ماینکرفت • رپید ۱۰ دقیقه‌ای</span>
+            <div class="game-meta">
+              <span class="tag">حرکت ۱۸</span>
+              <span class="game-time">۰۶:۱۵ مانده</span>
+            </div>
+          </div>
+        </div>
+        <div class="game-card" onclick="openSoonModal('بازبینی نبرد گری کاسپاروف و بردیا')">
+          <div class="mini-board">
+            <i>♜</i><i></i><i></i><i>♚</i>
+            <i></i><i></i><i>♛</i><i></i>
+            <i></i><i>♕</i><i></i><i></i>
+            <i>♔</i><i></i><i></i><i>♖</i>
+          </div>
+          <div class="game-info">
+            <strong>گری کاسپاروف vs. بردیا</strong>
+            <span>معبد شکوفه‌های ساکورا • استاندارد ۱۵ دقیقه‌ای</span>
+            <div class="game-meta">
+              <span class="tag">کیش و مات</span>
+              <span class="game-time">پایان بازی</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container bottom-cta">
+    <div class="cta-panel">
+      <div>
+        <h2>آماده فتح محراب شطرنج هستید؟</h2>
+        <p>به هزاران شطرنج‌باز بپیوندید و اولین حرکت پیروزی‌بخش خود را همین حالا ثبت کنید.</p>
+      </div>
+      <button class="btn" onclick="openBotModal(event)">شروع بازی</button>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <span>© ۲۰۲۶ تمامی حقوق برای پلتفرم ۳D Chess محفوظ است.</span>
+    <div class="footer-links">
+      <a href="#play" onclick="openBotModal(event)">شروع بازی</a>
+      <a href="#features">امکانات پلتفرم</a>
+      <a href="#recent" onclick="openSoonModal('بخش تماشای زنده')">تماشای زنده</a>
+    </div>
+  </div>
+</footer>
+
+<!-- دیالوگ اطلاع‌رسانی «به زودی» -->
+<div class="soon-modal-backdrop" id="soonModalBackdrop" onclick="if(event.target.id==='soonModalBackdrop') closeSoonModal()">
+  <div class="soon-modal-card" role="alertdialog" aria-modal="true">
+    <div class="soon-icon-wrap">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="9"/>
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 7v5l3 3"/>
+      </svg>
+    </div>
+    <span class="soon-badge">به‌روزرسانی آینده شاه‌مات</span>
+    <h3 class="soon-title" id="soonModalTitle">این قابلیت به‌زودی اضافه می‌شود!</h3>
+    <p class="soon-desc" id="soonModalDesc">
+      امکان رقابت آنلاین با بازیکنان واقعی و تماشای زنده میزهای مسابقه در حال توسعه است و به‌زودی فعال خواهد شد. هم‌اکنون می‌توانید با هوش مصنوعی‌های قهرمان وارد نبرد شوید!
+    </p>
+    <div class="soon-actions">
+      <button type="button" class="btn btn-outline" onclick="closeSoonModal()">متوجه شدم</button>
+      <button type="button" class="btn btn-primary" onclick="closeSoonModal(); openBotModal(event);">شروع بازی ←</button>
+    </div>
+  </div>
+</div>
+
+<!-- مودال گام اول: انتخاب حریف -->
+<div class="bot-modal-backdrop" id="botModalBackdrop" onclick="handleBackdropClick(event)">
+  <div class="bot-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    
+    <button class="modal-close-btn" onclick="closeBotModal()" aria-label="بستن پنجره">✕</button>
+
+    <div class="modal-header">
+      <div class="eyebrow"><span class="eyebrow-dot"></span> گام ۱ از ۲ • انتخاب حریف</div>
+      <h2 id="modalTitle">حریفت رو انتخاب کن!</h2>
+      <p>از اولین حرکت تا نبرد با استادان شطرنج؛ سطح خودت رو انتخاب کن.</p>
+    </div>
+
+    <div class="bot-cards-grid">
+      
+      <!-- ۱. نوب اسب -->
+      <div class="bot-card selected" data-bot="noob" data-name="نوب اسب" onclick="selectBot(this)">
+        <span class="card-check-badge">✓</span>
+        <div class="bot-portrait-wrap" style="background:#e0f2fe;">
+          <svg class="bot-portrait-svg" viewBox="0 0 120 120" fill="none">
+            <circle cx="60" cy="60" r="54" fill="#dbeafe"/>
+            <path d="M22 116 C25 86, 38 82, 60 82 C82 82, 95 86, 98 116 Z" fill="#ffffff"/>
+            <path d="M44 84 L60 98 L76 84 Z" fill="#93c5fd"/>
+            <path d="M57 96 C55 94, 56 91, 58 90 C60 90, 62 91, 61 93 C63 92, 65 94, 64 96 C64 98, 61 99, 57 99 Z" fill="#0284c7"/>
+            <rect x="52" y="66" width="16" height="18" fill="#fed7aa"/>
+            <circle cx="60" cy="52" r="23" fill="#ffedd5"/>
+            <path d="M37 46 C35 30, 48 24, 60 24 C72 24, 85 30, 83 46 C80 39, 74 34, 60 34 C46 34, 40 40, 37 46 Z" fill="#b45309"/>
+            <path d="M42 26 L46 16 L52 25 L58 14 L65 24 L72 17 L76 27 Z" fill="#b45309"/>
+            <circle cx="37" cy="53" r="6" fill="#fed7aa"/>
+            <circle cx="83" cy="53" r="6" fill="#fed7aa"/>
+            <ellipse cx="50" cy="46" rx="5.5" ry="6.5" fill="#ffffff"/>
+            <ellipse cx="70" cy="46" rx="4.5" ry="5.5" fill="#ffffff"/>
+            <circle cx="51" cy="47" r="2.8" fill="#1e293b"/>
+            <circle cx="69" cy="47" r="2.2" fill="#1e293b"/>
+            <circle cx="52" cy="45" r="1" fill="#ffffff"/>
+            <circle cx="70" cy="45" r="0.8" fill="#ffffff"/>
+            <path d="M45 38 Q50 36 55 40" stroke="#78350f" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M65 41 Q70 37 75 39" stroke="#78350f" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="60" cy="52" r="3" fill="#fca5a5"/>
+            <circle cx="44" cy="55" r="4" fill="#f87171" opacity="0.4"/>
+            <circle cx="76" cy="55" r="4" fill="#f87171" opacity="0.4"/>
+            <path d="M46 58 Q60 74 74 60 Z" fill="#dc2626"/>
+            <path d="M48 60 Q60 66 72 61 L70 65 Q60 69 50 63 Z" fill="#ffffff"/>
+          </svg>
+        </div>
+        <h3 class="bot-name">نوب اسب</h3>
+        <span class="bot-name-en">Noob Horse</span>
+        <div class="power-meta">
+          <span class="power-label">قدرت</span>
+          <span class="power-value">۲۰ از ۱۰۰</span>
+        </div>
+        <div class="power-bar-bg"><div class="power-bar-fill"></div></div>
+        <span class="difficulty-tag tag-easy">خیلی آسان</span>
+        <p class="bot-desc">هنوز دارم یاد می‌گیرم! برای اولین بازی‌ها کنارتم.</p>
+        <button class="card-action-btn" type="button">بازی با نوب اسب</button>
+      </div>
+
+      <!-- ۲. بابی فیشر -->
+      <div class="bot-card" data-bot="fischer" data-name="بابی فیشر" onclick="selectBot(this)">
+        <span class="card-check-badge">✓</span>
+        <div class="bot-portrait-wrap" style="background:#eef5fc;">
+          <svg class="bot-portrait-svg" viewBox="0 0 120 120" fill="none">
+            <circle cx="60" cy="60" r="54" fill="#dbeafe"/>
+            <path d="M22 116 C25 86, 38 76, 60 76 C82 76, 95 86, 98 116 Z" fill="#1e293b"/>
+            <polygon points="53,76 67,76 64,116 56,116" fill="#f8fafc"/>
+            <polygon points="58,80 62,80 63,105 60,110 57,105" fill="#1d4ed8"/>
+            <rect x="52" y="65" width="16" height="15" fill="#fed7aa"/>
+            <path d="M40 50 C40 36, 49 32, 60 32 C71 32, 80 36, 80 50 C80 68, 70 73, 60 73 C50 73, 40 68, 40 50 Z" fill="#ffedd5"/>
+            <path d="M38 45 C38 28, 48 23, 60 23 C72 23, 82 28, 81 44 C76 34, 66 30, 56 30 C46 30, 40 37, 38 45 Z" fill="#78350f"/>
+            <path d="M39 42 L41 53 L44 51 L43 42 Z" fill="#78350f"/>
+            <path d="M46 44 L55 45" stroke="#451a03" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M65 45 L74 44" stroke="#451a03" stroke-width="2.5" stroke-linecap="round"/>
+            <ellipse cx="51" cy="49" rx="2.5" ry="2" fill="#1e293b"/>
+            <ellipse cx="69" cy="49" rx="2.5" ry="2" fill="#1e293b"/>
+            <path d="M60 47 L58 56 L62 57" stroke="#ea580c" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <line x1="55" y1="64" x2="65" y2="64" stroke="#9a3412" stroke-width="2.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="bot-name">بابی فیشر</h3>
+        <span class="bot-name-en">Bobby Fischer</span>
+        <div class="power-meta">
+          <span class="power-label">قدرت</span>
+          <span class="power-value">۵۰ از ۱۰۰</span>
+        </div>
+        <div class="power-bar-bg"><div class="power-bar-fill"></div></div>
+        <span class="difficulty-tag tag-medium">متوسط</span>
+        <p class="bot-desc">برای شروع یک چالش واقعی و استراتژی کلاسیک.</p>
+        <button class="card-action-btn" type="button">بازی با بابی فیشر</button>
+      </div>
+
+      <!-- ۳. گری کاسپاروف -->
+      <div class="bot-card" data-bot="kasparov" data-name="گری کاسپاروف" onclick="selectBot(this)">
+        <span class="card-check-badge">✓</span>
+        <div class="bot-portrait-wrap" style="background:#e8f0fa;">
+          <svg class="bot-portrait-svg" viewBox="0 0 120 120" fill="none">
+            <circle cx="60" cy="60" r="54" fill="#bfdbfe"/>
+            <path d="M20 116 C24 85, 38 75, 60 75 C82 75, 96 85, 100 116 Z" fill="#0f172a"/>
+            <polygon points="51,75 69,75 65,116 55,116" fill="#f8fafc"/>
+            <polygon points="58,79 62,79 64,106 60,112 56,106" fill="#1e3a8a"/>
+            <rect x="52" y="64" width="16" height="15" fill="#fed7aa"/>
+            <path d="M37 51 C37 38, 47 34, 60 34 C73 34, 83 38, 83 51 C83 67, 73 74, 60 74 C47 74, 37 67, 37 51 Z" fill="#ffedd5"/>
+            <path d="M36 50 C36 34, 46 26, 60 26 C74 26, 84 34, 84 50 C80 39, 72 37, 60 37 C48 37, 40 40, 36 50 Z" fill="#1e293b"/>
+            <path d="M36 48 L42 45 L41 52 Z" fill="#94a3b8"/>
+            <path d="M84 48 L78 45 L79 52 Z" fill="#94a3b8"/>
+            <path d="M43 45 L58 48" stroke="#020617" stroke-width="3.6" stroke-linecap="round"/>
+            <path d="M62 48 L77 45" stroke="#020617" stroke-width="3.6" stroke-linecap="round"/>
+            <circle cx="50" cy="52" r="2.5" fill="#020617"/>
+            <circle cx="70" cy="52" r="2.5" fill="#020617"/>
+            <path d="M60 48 L58 57 L63 58" stroke="#ea580c" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <line x1="54" y1="64" x2="66" y2="64" stroke="#7c2d12" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="bot-name">گری کاسپاروف</h3>
+        <span class="bot-name-en">Garry Kasparov</span>
+        <div class="power-meta">
+          <span class="power-label">قدرت</span>
+          <span class="power-value">۷۵ از ۱۰۰</span>
+        </div>
+        <div class="power-bar-bg"><div class="power-bar-fill"></div></div>
+        <span class="difficulty-tag tag-hard">سخت</span>
+        <p class="bot-desc">استراتژی و حمله‌های حساب‌شده و تهاجم بی‌رحمانه.</p>
+        <button class="card-action-btn" type="button">بازی با کاسپاروف</button>
+      </div>
+
+      <!-- ۴. مگنوس کارلسن -->
+      <div class="bot-card" data-bot="magnus" data-name="مگنوس کارلسن" onclick="selectBot(this)">
+        <span class="card-check-badge">✓</span>
+        <div class="bot-portrait-wrap" style="background:#e0e9f6;">
+          <svg class="bot-portrait-svg" viewBox="0 0 120 120" fill="none">
+            <circle cx="60" cy="60" r="54" fill="#cbd5e1"/>
+            <path d="M20 116 C24 86, 38 77, 60 77 C82 77, 96 86, 100 116 Z" fill="#1e293b"/>
+            <polygon points="48,77 72,77 60,104" fill="#ffffff"/>
+            <rect x="52" y="65" width="16" height="15" fill="#fed7aa"/>
+            <path d="M37 50 C37 36, 47 33, 60 33 C73 33, 83 36, 83 50 C83 67, 74 72, 60 72 C46 72, 37 67, 37 50 Z" fill="#ffedd5"/>
+            <path d="M35 44 C35 24, 46 19, 60 19 C74 19, 85 24, 85 44 C80 34, 70 28, 60 28 C50 28, 42 33, 35 44 Z" fill="#92400e"/>
+            <path d="M46 24 C54 28, 66 26, 75 32 C68 29, 58 30, 46 24 Z" fill="#78350f"/>
+            <path d="M45 44 L56 43" stroke="#451a03" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M64 43 L75 44" stroke="#451a03" stroke-width="2.2" stroke-linecap="round"/>
+            <ellipse cx="50" cy="48" rx="2.8" ry="1.6" fill="#0f172a"/>
+            <ellipse cx="70" cy="48" rx="2.8" ry="1.6" fill="#0f172a"/>
+            <path d="M60 46 L58 55 L63 56" stroke="#ea580c" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <path d="M54 62 Q60 63 66 62" stroke="#78350f" stroke-width="2.4" stroke-linecap="round"/>
+            <path d="M56 65 Q60 66 64 65" stroke="#9a3412" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="bot-name">مگنوس کارلسن</h3>
+        <span class="bot-name-en">Magnus Carlsen</span>
+        <div class="power-meta">
+          <span class="power-label">قدرت</span>
+          <span class="power-value">۱۰۰ از ۱۰۰</span>
+        </div>
+        <div class="power-bar-bg"><div class="power-bar-fill"></div></div>
+        <span class="difficulty-tag tag-master">استاد نهایی</span>
+        <p class="bot-desc">آماده‌ای با بهترین‌ها روبه‌رو بشی؟ قهرمان جهان در برابر توست.</p>
+        <button class="card-action-btn" type="button">بازی با مگنوس</button>
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <div class="modal-hint">
+        💡 در گام بعدی، میز و سرزمین نبرد سه‌بعدی خود را انتخاب خواهید کرد.
+      </div>
+      <button class="btn-start-game" id="mainStartBtn" onclick="goToWorldModal()">
+        ادامه و انتخاب میز نبرد (نوب اسب) ←
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- مودال گام دوم: انتخاب مپ / سرزمین بازی (با میز فعال سبز رنگ) -->
+<div class="bot-modal-backdrop" id="worldModalBackdrop" onclick="if(event.target.id==='worldModalBackdrop') closeWorldModal()">
+  <div class="bot-modal" role="dialog" aria-modal="true" aria-labelledby="worldModalTitle">
+    
+    <button class="modal-close-btn" onclick="closeWorldModal()" aria-label="بستن پنجره">✕</button>
+
+    <div class="modal-header">
+      <div class="eyebrow"><span class="eyebrow-dot"></span> گام ۲ از ۲ • انتخاب سرزمین نبرد</div>
+      <h2 id="worldModalTitle">میز و قلمرو نبرد را انتخاب کنید</h2>
+      <p>حریف انتخاب‌شده: <strong id="chosenBotNameLabel" style="color:var(--blue-2);">نوب اسب</strong> — اکنون میز مسابقه را جهت ورود به بازی انتخاب کنید.</p>
+    </div>
+
+    <div class="worlds-grid">
+      
+      <!-- میز ۱: تالار کتابخانه سلطنتی (فعال - سبز رنگ) -->
+      <div class="world-card active-world" onclick="enterGameArena('classic-library')">
+        <div class="world-cover-bg world-cover-classic"></div>
+        <div class="world-gradient-overlay"></div>
+        
+        <div class="world-top-badges">
+          <span class="badge-ready">● فعال • آماده نبرد</span>
+          <span style="width:30px;height:30px;border-radius:50%;background:#059669;color:#fff;display:grid;place-items:center;font-weight:bold;box-shadow:0 4px 12px rgba(5,150,105,0.4);">✓</span>
+        </div>
+
+        <div class="world-info-box">
+          <span class="world-kicker" style="color:#34d399;">👑 میز کلاسیک اشرافی</span>
+          <h3 class="world-title-fa">تالار کتابخانه سلطنتی</h3>
+          <span class="world-title-en">CLASSIC ROYAL LIBRARY</span>
+          <p class="world-desc">میز گرد چوب گردو و ماهون، چراغ مطالعه بانکداری و مهره‌های دست‌تراش استونتون با افکت خروج روح مهره‌ها.</p>
+          <button type="button" class="world-select-btn">ورود به این میز ←</button>
+        </div>
+      </div>
+
+      <!-- میز ۲: قلمرو مکعبی ماینکرفت (قفل + سیاه‌وسفید + به زودی) -->
+      <div class="world-card locked-world" onclick="openSoonModal('میز «قلمرو مکعبی ماینکرفت»')">
+        <div class="world-cover-bg world-cover-minecraft"></div>
+        <div class="world-gradient-overlay"></div>
+
+        <div class="world-top-badges">
+          <span class="badge-soon">🔒 به‌زودی</span>
+        </div>
+
+        <div class="center-lock-circle">
+          <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0110 0v4"/>
+          </svg>
+        </div>
+
+        <div class="world-info-box" style="opacity:0.85;">
+          <span class="world-kicker" style="color:#cbd5e1;">⚔️ دنیای وکسل و بلوک‌ها</span>
+          <h3 class="world-title-fa">قلمرو مکعبی ماینکرفت</h3>
+          <span class="world-title-en" style="color:#94a3b8;">MINECRAFT VOXEL REALM</span>
+          <p class="world-desc">نبرد بر فراز صخره‌های معلق مکعبی، آبشارهای پیکسلی، فانوس‌های فروزان و غروب آفتاب چهارگوش.</p>
+          <button type="button" class="world-select-btn locked-btn">🔒 در دست ساخت (به‌زودی)</button>
+        </div>
+      </div>
+
+      <!-- میز ۳: معبد شکوفه‌های ساکورا (قفل + سیاه‌وسفید + به زودی) -->
+      <div class="world-card locked-world" onclick="openSoonModal('میز «معبد شکوفه‌های ساکورا»')">
+        <div class="world-cover-bg world-cover-japan"></div>
+        <div class="world-gradient-overlay"></div>
+
+        <div class="world-top-badges">
+          <span class="badge-soon">🔒 به‌زودی</span>
+        </div>
+
+        <div class="center-lock-circle">
+          <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0110 0v4"/>
+          </svg>
+        </div>
+
+        <div class="world-info-box" style="opacity:0.85;">
+          <span class="world-kicker" style="color:#cbd5e1;">🌸 باغ سامورایی و ذن</span>
+          <h3 class="world-title-fa">معبد شکوفه‌های ساکورا</h3>
+          <span class="world-title-en" style="color:#94a3b8;">JAPANESE SAKURA TEMPLE</span>
+          <p class="world-desc">صفحه شطرنج در دل باغ سنتی ژاپن، ریزش گلبرگ‌های صورتی گیلاس و فانوس‌های سنگی کنار برکه.</p>
+          <button type="button" class="world-select-btn locked-btn">🔒 در دست ساخت (به‌زودی)</button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" onclick="backToBotModal()">
+        → بازگشت به انتخاب حریف
+      </button>
+      <button type="button" class="btn-start-game" onclick="enterGameArena('classic-library')" style="background:linear-gradient(135deg, #059669, #10b981);">
+        ورود به تالار کتابخانه سلطنتی و شروع بازی ⚔️
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  let selectedOpponent = {
+    id: 'noob',
+    name: 'نوب اسب',
+    power: 20
+  };
+
+  function openSoonModal(featureName) {
+    const backdrop = document.getElementById('soonModalBackdrop');
+    const titleEl = document.getElementById('soonModalTitle');
+    titleEl.textContent = `«${featureName}» به‌زودی اضافه می‌شود!`;
+    backdrop.classList.add('active');
+  }
+
+  function closeSoonModal() {
+    document.getElementById('soonModalBackdrop').classList.remove('active');
+  }
+
+  function openBotModal(e) {
+    if (e) e.preventDefault();
+    document.getElementById('botModalBackdrop').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeBotModal() {
+    document.getElementById('botModalBackdrop').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function handleBackdropClick(e) {
+    if (e.target.id === 'botModalBackdrop') {
+      closeBotModal();
+    }
+  }
+
+  function selectBot(cardElement) {
+    const allCards = document.querySelectorAll('.bot-card');
+    allCards.forEach(c => c.classList.remove('selected'));
+    
+    cardElement.classList.add('selected');
+    
+    selectedOpponent.id = cardElement.getAttribute('data-bot');
+    selectedOpponent.name = cardElement.getAttribute('data-name');
+    
+    const mainBtn = document.getElementById('mainStartBtn');
+    mainBtn.textContent = `ادامه و انتخاب میز نبرد (${selectedOpponent.name}) ←`;
+  }
+
+  function goToWorldModal() {
+    document.getElementById('botModalBackdrop').classList.remove('active');
+    document.getElementById('chosenBotNameLabel').textContent = selectedOpponent.name;
+    document.getElementById('worldModalBackdrop').classList.add('active');
+  }
+
+  function closeWorldModal() {
+    document.getElementById('worldModalBackdrop').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function backToBotModal() {
+    document.getElementById('worldModalBackdrop').classList.remove('active');
+    document.getElementById('botModalBackdrop').classList.add('active');
+  }
+
+  function enterGameArena(worldId) {
+    const gameConfig = {
+      bot: selectedOpponent,
+      world: worldId
+    };
+    sessionStorage.setItem('selectedChessBot', JSON.stringify(selectedOpponent));
+    sessionStorage.setItem('shahmatGameConfig', JSON.stringify(gameConfig));
+
+    closeWorldModal();
+    window.location.href = `ChessGame.html?bot=${selectedOpponent.id}&world=${worldId}`;
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeSoonModal();
+      closeBotModal();
+      closeWorldModal();
+    }
+  });
+</script>
+
+</body>
+</html>
