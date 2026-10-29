@@ -1069,9 +1069,6 @@ export const ClassicChessArena: React.FC<ClassicChessArenaProps> = ({
       carlsen: { label: 'حریف: مگنوس کارلسن (قدرت ۱۰۰)', subname: 'Magnus Carlsen (100)', depth: 3, randomness: 0.0 },
     };
 
-    const OPENING_MOVES = [
-      ['e4', 'e5'], ['Nf3', 'Nc6'], ['Bb5', 'a6'], ['Ba4', 'Nf6'], ['O-O', 'Be7']
-    ];
     function squareToCoords(sq: string) {
       const f = files.indexOf(sq[0]);
       const r = 8 - parseInt(sq[1], 10);
@@ -1282,24 +1279,35 @@ export const ClassicChessArena: React.FC<ClassicChessArenaProps> = ({
 
       if (moveListEl) {
         moveListEl.innerHTML = '';
-        for (let i = 0; i < history.length; i += 2) {
-          const moveNum = Math.floor(i / 2) + 1;
-          const wMove = history[i]?.san || '';
-          const bMove = history[i + 1]?.san || '';
-          const isLatestRow = i + 2 >= history.length;
-
-          const row = document.createElement('div');
-          row.className = `grid grid-cols-[28px_1fr_1fr] items-center px-2.5 py-1 rounded-lg transition ${
-            isLatestRow ? 'bg-amber-100/15 text-white font-semibold' : 'text-amber-100/65 hover:bg-white/5'
-          }`;
-          row.innerHTML = `
-            <span class="text-amber-100/40">${moveNum}.</span>
-            <span>${wMove}</span>
-            <span>${bMove}</span>
+        if (history.length === 0) {
+          const emptyDiv = document.createElement('div');
+          emptyDiv.className = 'flex flex-col items-center justify-center text-center text-amber-100/35 py-10';
+          emptyDiv.innerHTML = `
+            <span class="text-xl opacity-30 mb-2">♟</span>
+            <span class="text-[11px] font-['Vazirmatn'] tracking-wide">بازی آغاز شد</span>
+            <span class="text-[10px] text-amber-100/25 mt-0.5">نوبت سفید (شما)</span>
           `;
-          moveListEl.appendChild(row);
+          moveListEl.appendChild(emptyDiv);
+        } else {
+          for (let i = 0; i < history.length; i += 2) {
+            const moveNum = Math.floor(i / 2) + 1;
+            const wMove = history[i]?.san || '';
+            const bMove = history[i + 1]?.san || '';
+            const isLatestRow = i + 2 >= history.length;
+
+            const row = document.createElement('div');
+            row.className = `grid grid-cols-[28px_1fr_1fr] items-center px-2.5 py-1 rounded-lg transition ${
+              isLatestRow ? 'bg-amber-100/15 text-white font-semibold' : 'text-amber-100/65 hover:bg-white/5'
+            }`;
+            row.innerHTML = `
+              <span class="text-amber-100/40">${moveNum}.</span>
+              <span>${wMove}</span>
+              <span>${bMove}</span>
+            `;
+            moveListEl.appendChild(row);
+          }
+          moveListEl.scrollTop = moveListEl.scrollHeight;
         }
-        moveListEl.scrollTop = moveListEl.scrollHeight;
       }
 
       const capturedByWhite: string[] = [];
@@ -1317,24 +1325,32 @@ export const ClassicChessArena: React.FC<ClassicChessArenaProps> = ({
 
       if (whiteTrayEl) {
         whiteTrayEl.innerHTML = '';
-        const displayWhiteTray =
-          capturedByWhite.length > 0 ? capturedByWhite : ['p', 'p', 'p', 'n', 'b', 'r', 'q'];
-        displayWhiteTray.forEach((t) => {
-          const icon = createCapturedIcon(t, true);
-          if (capturedByWhite.length === 0) icon.style.opacity = '0.78';
-          whiteTrayEl.appendChild(icon);
-        });
+        if (capturedByWhite.length === 0) {
+          const emptySpan = document.createElement('span');
+          emptySpan.className = 'text-[10.5px] text-amber-100/35 font-["Vazirmatn"] px-1';
+          emptySpan.textContent = 'بدون مهره زده‌شده';
+          whiteTrayEl.appendChild(emptySpan);
+        } else {
+          capturedByWhite.forEach((t) => {
+            const icon = createCapturedIcon(t, true);
+            whiteTrayEl.appendChild(icon);
+          });
+        }
       }
 
       if (blackTrayEl) {
         blackTrayEl.innerHTML = '';
-        const displayBlackTray =
-          capturedByBlack.length > 0 ? capturedByBlack : ['p', 'p', 'n', 'b', 'b', 'r', 'k'];
-        displayBlackTray.forEach((t) => {
-          const icon = createCapturedIcon(t, false);
-          if (capturedByBlack.length === 0) icon.style.opacity = '0.78';
-          blackTrayEl.appendChild(icon);
-        });
+        if (capturedByBlack.length === 0) {
+          const emptySpan = document.createElement('span');
+          emptySpan.className = 'text-[10.5px] text-amber-100/35 font-["Vazirmatn"] px-1';
+          emptySpan.textContent = 'بدون مهره زده‌شده';
+          blackTrayEl.appendChild(emptySpan);
+        } else {
+          capturedByBlack.forEach((t) => {
+            const icon = createCapturedIcon(t, false);
+            blackTrayEl.appendChild(icon);
+          });
+        }
       }
 
       const isWhiteTurn = chess.turn() === 'w';
@@ -1361,8 +1377,8 @@ export const ClassicChessArena: React.FC<ClassicChessArenaProps> = ({
       statusBanner.style.transform = 'translate(-50%, 0)';
     }
 
-    let whiteSeconds = 8 * 60 + 45;
-    let blackSeconds = 9 * 60 + 12;
+    let whiteSeconds = 10 * 60;
+    let blackSeconds = 10 * 60;
     const whiteClockEl = rootContainer.querySelector('#white-clock') as HTMLSpanElement;
     const blackClockEl = rootContainer.querySelector('#black-clock') as HTMLSpanElement;
 
@@ -1475,6 +1491,20 @@ export const ClassicChessArena: React.FC<ClassicChessArenaProps> = ({
     if (currentBotLabel) currentBotLabel.textContent = initCfg.label;
     if (opponentSubname) opponentSubname.textContent = initCfg.subname;
 
+    function startNewGame() {
+      chess.reset();
+      selectedSquare = null;
+      selectionRing.visible = false;
+      lastMoveFromRing.visible = false;
+      lastMoveToRing.visible = false;
+      clearMoveIndicators();
+      whiteSeconds = 10 * 60;
+      blackSeconds = 10 * 60;
+      if (whiteClockEl) whiteClockEl.textContent = formatTime(whiteSeconds);
+      if (blackClockEl) blackClockEl.textContent = formatTime(blackSeconds);
+      syncBoardMeshesFromEngine();
+    }
+
     const handleUndo = () => {
       if (isBotThinking || chess.history().length === 0) return;
       chess.undo();
@@ -1493,21 +1523,12 @@ export const ClassicChessArena: React.FC<ClassicChessArenaProps> = ({
       if (chess.isGameOver()) return;
       showBanner('شما تسلیم شدید. بازی جدید در حال چیده شدن...');
       setTimeout(() => {
-        chess.reset();
-        lastMoveFromRing.visible = false;
-        lastMoveToRing.visible = false;
-        syncBoardMeshesFromEngine();
+        startNewGame();
       }, 1500);
     };
 
     const handleResetBoard = () => {
-      chess.reset();
-      lastMoveFromRing.visible = false;
-      lastMoveToRing.visible = false;
-      selectedSquare = null;
-      selectionRing.visible = false;
-      clearMoveIndicators();
-      syncBoardMeshesFromEngine();
+      startNewGame();
     };
 
     const handleToggleBotDropdown = () => {
@@ -1539,24 +1560,8 @@ export const ClassicChessArena: React.FC<ClassicChessArenaProps> = ({
     };
     cameraViewBtn?.addEventListener('click', handleCameraView);
 
-  function initClassicPosition() {
-      // پاک کردن کامل تخته و برگرداندن به حالت اولیه
-      chess.reset();
-      
-      // اگر فرضا حرکتی توی حافظه یا تاریخچه گیر کرده بود، پاکش می‌کنیم
-      while (chess.history().length > 0) {
-        chess.undo();
-      }
-      chess.reset(); // یک بار دیگه برای اطمینان صد درصدی
-      
-      syncBoardMeshesFromEngine();
-      lastMoveFromRing.visible = false;
-      lastMoveToRing.visible = false;
-      selectedSquare = null;
-      selectionRing.visible = false;
-      clearMoveIndicators();
-    }
-    initClassicPosition();
+    // Initialize clean starting game (White turn, standard board position)
+    startNewGame();
 
     // ============================================================================
     // 13. MAIN RENDER LOOP
@@ -1820,7 +1825,7 @@ export const ClassicChessArena: React.FC<ClassicChessArenaProps> = ({
                 <circle cx="12" cy="12" r="9" />
                 <path strokeLinecap="round" d="M12 7v5l3 2" />
               </svg>
-              <span id="white-clock">08:45</span>
+              <span id="white-clock">10:00</span>
             </div>
           </div>
 
@@ -1892,7 +1897,7 @@ export const ClassicChessArena: React.FC<ClassicChessArenaProps> = ({
                 <circle cx="12" cy="12" r="9" />
                 <path strokeLinecap="round" d="M12 7v5l3 2" />
               </svg>
-              <span id="black-clock">09:12</span>
+              <span id="black-clock">10:00</span>
             </div>
           </div>
 
