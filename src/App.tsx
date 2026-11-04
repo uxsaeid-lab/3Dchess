@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { LandingPage } from './components/landing/LandingPage';
 import { ClassicChessArena } from './components/game/ClassicChessArena';
 import type { BotConfig } from './types/chess';
@@ -22,15 +23,19 @@ export function App() {
     return (
       <div className="w-screen h-screen overflow-y-auto bg-white">
         <LandingPage onStartGame={handleStartGame} />
+        <Analytics />
       </div>
     );
   }
 
   return (
-    <ClassicChessArena
-      initialBotId={selectedBot?.id || 'noob'}
-      onExitToLanding={handleExitToLanding}
-    />
+    <>
+      <ClassicChessArena
+        initialBotId={selectedBot?.id || 'noob'}
+        onExitToLanding={handleExitToLanding}
+      />
+      <Analytics />
+    </>
   );
 }
 
